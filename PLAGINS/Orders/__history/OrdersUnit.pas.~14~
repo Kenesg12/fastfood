@@ -1,0 +1,89 @@
+unit OrdersUnit;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
+  Data.DB, FireDAC.Comp.Client, LinkConnectionUnit, FireDAC.Phys.FB,
+  FireDAC.Phys.FBDef, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
+  FireDAC.DApt, FireDAC.Comp.DataSet, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, dxBarBuiltInMenu, cxPC, System.Actions, Vcl.ActnList,
+  Vcl.ButtonGroup, Vcl.ToolWin, Vcl.ActnMan, Vcl.ActnCtrls, Vcl.ActnMenus,
+  cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
+  cxDataControllerConditionalFormattingRulesManagerDialog, cxDBData,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, Vcl.ExtCtrls,
+  cxGridLevel, cxClasses, cxGridCustomView, cxGrid;
+
+type
+  TfmOrders = class(TForm)
+    FDConnection1: TFDConnection;
+    tbPages: TFDQuery;
+    tbPagesDT: TDateField;
+    cxPageControl1: TcxPageControl;
+    cxGrid1DBTableView1: TcxGridDBTableView;
+    cxGrid1Level1: TcxGridLevel;
+    cxGrid1: TcxGrid;
+    Orders: TFDQuery;
+    OrdersSource: TDataSource;
+    Panel1: TPanel;
+    OrdersKOD: TIntegerField;
+    OrdersDT: TSQLTimeStampField;
+    OrdersNAME: TWideStringField;
+    OrdersTOTAL_SUM: TFloatField;
+    cxGrid1DBTableView1Column1: TcxGridDBColumn;
+    cxGrid1DBTableView1Column2: TcxGridDBColumn;
+    cxGrid1DBTableView1Column3: TcxGridDBColumn;
+    cxGrid1DBTableView1Column4: TcxGridDBColumn;
+    procedure FormCreate(Sender: TObject);
+    procedure Action1Execute(Sender: TObject);
+    procedure cxPageControl1Change(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fmOrders: TfmOrders;
+  FDB:TFDConnection;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfmOrders.Action1Execute(Sender: TObject);
+begin
+//
+end;
+
+procedure TfmOrders.cxPageControl1Change(Sender: TObject);
+begin
+if cxPageControl1.ActivePage.Tag > 0 then
+ begin
+  Orders.Params[0].AsDate:=cxPageControl1.ActivePage.Tag;
+  Orders.Refresh;
+ end;
+end;
+
+procedure TfmOrders.FormCreate(Sender: TObject);
+begin
+SetConnection(TForm(Self), FDB);
+tbPages.Active:=true;
+Orders.Params[0].AsDate:=tbPagesDT.AsDateTime;
+Orders.Active:=true;
+while tbPages.Eof <> true do
+ begin
+   with TcxTabSheet.Create(cxPageControl1) do
+    begin
+     PageControl:=cxPageControl1;
+     Caption:=tbPagesDT.AsString;
+     Tag:=trunc(tbPagesDT.AsDateTime);
+    end;
+   tbPages.Next;
+ end;
+end;
+
+end.

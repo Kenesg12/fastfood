@@ -1,0 +1,76 @@
+object fmDateEdit: TfmDateEdit
+  Left = 0
+  Top = 0
+  BorderStyle = bsNone
+  Caption = 'fmDateEdit'
+  ClientHeight = 305
+  ClientWidth = 718
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object cxDateNavigator1: TcxDateNavigator
+    Left = 0
+    Top = 0
+    Width = 425
+    Height = 305
+    Align = alLeft
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -27
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    TabOrder = 0
+  end
+  object TimePicker1: TTimePicker
+    Left = 458
+    Top = 16
+    Width = 223
+    Height = 73
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -67
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    TabOrder = 1
+    Time = 43820.837300543980000000
+    TimeFormat = 'h:mm'
+  end
+  object cxButton1: TcxButton
+    Left = 458
+    Top = 240
+    Width = 119
+    Height = 57
+    Caption = 'OK'
+    ModalResult = 1
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 2
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -27
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object cxButton2: TcxButton
+    Left = 582
+    Top = 240
+    Width = 99
+    Height = 57
+    Caption = #1054#1090#1084#1077#1085#1072
+    ModalResult = 2
+    TabOrder = 3
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -27
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+end

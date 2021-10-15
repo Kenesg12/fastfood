@@ -1,0 +1,55 @@
+unit StationUnit;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, cxGraphics, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons,
+  cxControls, cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxDropDownEdit,
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, DB, FIBDataSet, pFIBDataSet,
+  IniFiles;
+
+type
+  TfmStation = class(TForm)
+    tbStation: TpFIBDataSet;
+    StationSource: TDataSource;
+    tbStationID: TIntegerField;
+    tbStationNAME: TStringField;
+    cxLookupComboBox1: TcxLookupComboBox;
+    cxButton1: TcxButton;
+    procedure FormCreate(Sender: TObject);
+    procedure cxButton1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fmStation: TfmStation;
+
+implementation
+
+uses DMUnit, MainUnit;
+
+{$R *.dfm}
+
+procedure TfmStation.cxButton1Click(Sender: TObject);
+var ini:Tinifile;
+begin
+  if cxLookupCombobox1.EditingValue > 0 then
+   begin
+     ini:=TIniFile.Create(ExtractFilePath(ParamStr(0))+'config.ini');
+     ini.WriteInteger('DATABASE', 'STATION', cxLookupCombobox1.EditingValue);
+     ini.Free;
+     Station:=cxLookupComboBox1.EditingValue;
+     Close;
+   end;
+end;
+
+procedure TfmStation.FormCreate(Sender: TObject);
+begin
+tbStation.Active:=true;
+end;
+
+end.

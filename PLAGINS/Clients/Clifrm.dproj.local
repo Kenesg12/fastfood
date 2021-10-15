@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.989,=C:\Users\acer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.900,=C:\Users\acer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.156,=C:\Users\acer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.151,=C:\Users\acer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.860,C:\Users\acer\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Clients\Clifrm.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.838,=C:\Users\acer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.644,=C:\Users\acer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019.04.08 18:40:30.996,=C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Clients\Unit1.pas</Transaction>
+    <Transaction>2019.04.08 18:42:21.948,C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Clients\fmCliUtint.dfm=C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Clients\Unit1.dfm</Transaction>
+    <Transaction>2019.04.08 18:42:21.948,C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Clients\fmCliUtint.pas=C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Clients\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

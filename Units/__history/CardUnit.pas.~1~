@@ -1,0 +1,70 @@
+unit CardUnit;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, DB, ADODB, Menus, cxLookAndFeelPainters, cxButtons;
+
+type
+  TfmCard = class(TForm)
+    Edit1: TEdit;
+    Label1: TLabel;
+    tbCard: TADOQuery;
+    tbCardIDPERSON: TIntegerField;
+    tbCardVCCODE: TWideStringField;
+    cxButton1: TcxButton;
+    procedure Edit1KeyPress(Sender: TObject; var Key: Char);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure cxButton1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fmCard: TfmCard;
+
+implementation
+
+uses DMUnit, MainUnit;
+
+{$R *.dfm}
+
+procedure TfmCard.cxButton1Click(Sender: TObject);
+begin
+Close;
+end;
+
+procedure TfmCard.Edit1KeyPress(Sender: TObject; var Key: Char);
+begin
+if Key=#13 then
+ begin
+  if tbCard.Locate('vcCode',Edit1.Text,[]) then
+   begin
+    TfmMain(self.Owner).Open_Orders.Edit;
+    TfmMain(self.Owner).Open_OrdersIDKLINET.AsInteger:=tbCardIDPERSON.AsInteger;
+    TfmMain(self.Owner).Open_Orders.Post;
+    TfmMain(self.Owner).DBLookupComboBox1Click(nil);
+    close;
+   end;
+  Edit1.Text:='';
+ end else
+
+
+end;
+
+procedure TfmCard.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+Edit1.Text:='';
+end;
+
+procedure TfmCard.FormShow(Sender: TObject);
+begin
+tbCard.Active:=true;
+Edit1.SetFocus;
+end;
+
+end.

@@ -1,0 +1,34 @@
+unit DateEditUnit;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxStyles, cxSchedulerStorage,
+  cxSchedulerCustomControls, cxSchedulerDateNavigator, cxContainer, cxEdit,
+  Vcl.StdCtrls, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxLookupEdit,
+  cxDBLookupEdit, cxDBLookupComboBox, cxDateNavigator, Vcl.WinXPickers, Data.DB,
+  dxmdaset;
+
+type
+  TfmDateEdit = class(TForm)
+    cxDateNavigator1: TcxDateNavigator;
+    cxLookupComboBox1: TcxLookupComboBox;
+    ComboBox1: TComboBox;
+    dxMemData1: TdxMemData;
+    TimePicker1: TTimePicker;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fmDateEdit: TfmDateEdit;
+
+implementation
+
+{$R *.dfm}
+
+end.

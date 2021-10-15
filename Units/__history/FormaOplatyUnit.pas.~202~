@@ -1,0 +1,570 @@
+unit FormaOplatyUnit;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons, ExtCtrls, AdvPanel,
+  cxControls, cxContainer, cxEdit, cxTextEdit, cxCurrencyEdit, DBCtrls, DB,
+  ADODB, frxClass, cxGraphics, cxMaskEdit, cxDropDownEdit,
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, Printers, frxDBSet,
+  iniFiles,
+  COMObj, OleCtrls, Grids, DBGrids,
+  cxPC, cxLookAndFeels, dxBarBuiltInMenu, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, System.ImageList, Vcl.ImgList,
+  cxImageList, dxGDIPlusClasses;
+
+type
+  TfmFormaOplaty = class(TForm)
+    OrdersSource: TDataSource;
+    PersonSource: TDataSource;
+    frxDBDataset1: TfrxDBDataset;
+    frxReport1: TfrxReport;
+    Panel1: TPanel;
+    DBText1: TDBText;
+    Label1: TLabel;
+    Panel2: TPanel;
+    Label2: TLabel;
+    cxPageControl1: TcxPageControl;
+    cxTabSheet1: TcxTabSheet;
+    cxButton1: TcxButton;
+    cxButton2: TcxButton;
+    cxButton4: TcxButton;
+    cxTabSheet2: TcxTabSheet;
+    cxButton3: TcxButton;
+    cxButton6: TcxButton;
+    cxCurrencyEdit1: TcxCurrencyEdit;
+    Label3: TLabel;
+    cxCurrencyEdit2: TcxCurrencyEdit;
+    Label4: TLabel;
+    cxTabSheet3: TcxTabSheet;
+    cxButton8: TcxButton;
+    cxButton7: TcxButton;
+    cxDBLookupComboBox1: TcxDBLookupComboBox;
+    Label6: TLabel;
+    cxCurrencyEdit4: TcxCurrencyEdit;
+    cxCurrencyEdit3: TcxCurrencyEdit;
+    Label5: TLabel;
+    cxButton14: TcxButton;
+    tbPerson: TFDQuery;
+    tbPersonID: TIntegerField;
+    tbPersonNAME: TWideStringField;
+    Orders: TFDQuery;
+    OrdersUID: TWideStringField;
+    OrdersKOD: TIntegerField;
+    OrdersTOTAL_SUM: TFloatField;
+    OrdersSUPPLIER: TIntegerField;
+    Orders_item: TFDQuery;
+    Orders_itemIDORDERS_ITEM: TWideStringField;
+    Orders_itemNAME: TWideStringField;
+    Orders_itemFKOLVO: TFloatField;
+    Orders_itemCENA: TFloatField;
+    Orders_itemIDMENU: TIntegerField;
+    KKM_read: TFDQuery;
+    KKM_readUSLUGA: TWideStringField;
+    KKM_readFKOLVO: TFloatField;
+    KKM_readCENA_SALES: TFloatField;
+    KKM_readDISCOUNT: TFloatField;
+    KKM_readMARGIN: TFloatField;
+    KKM_readTOTAL_SUM: TFloatField;
+    Spisanie: TFDCommand;
+    Close_orders: TFDCommand;
+    Oplata: TFDCommand;
+    DBText3: TDBText;
+    Label7: TLabel;
+    OrdersSUMMA: TFloatField;
+    cxButton5: TcxButton;
+    cxImageList1: TcxImageList;
+    OrdersDELIV: TIntegerField;
+    Panel3: TPanel;
+    Image1: TImage;
+    Panel4: TPanel;
+    cxCurrencyEdit5: TcxCurrencyEdit;
+    cxCurrencyEdit6: TcxCurrencyEdit;
+    cxImageList2: TcxImageList;
+    cxButton9: TcxButton;
+    cxButton10: TcxButton;
+    cxButton11: TcxButton;
+    cxButton12: TcxButton;
+    cxButton13: TcxButton;
+    Label8: TLabel;
+    procedure cxCurrencyEdit1Click(Sender: TObject);
+    procedure cxButton3Click(Sender: TObject);
+    procedure OplataOrders(Klient,Fo:integer; mani:Double; isprint:Boolean);
+    procedure DBText2Click(Sender: TObject);
+    procedure cxButton1Click(Sender: TObject);
+    procedure cxButton2Click(Sender: TObject);
+    procedure cxButton6Click(Sender: TObject);
+    procedure cxButton8Click(Sender: TObject);
+    procedure cxCurrencyEdit4Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Orders1AfterScroll(DataSet: TDataSet);
+    procedure cxCurrencyEdit1PropertiesChange(Sender: TObject);
+    procedure cxCurrencyEdit1KeyPress(Sender: TObject; var Key: Char);
+    procedure cxButton14Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure cxCurrencyEdit3Click(Sender: TObject);
+    procedure cxButton5Click(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
+    procedure cxCurrencyEdit5Click(Sender: TObject);
+    procedure cxCurrencyEdit6Click(Sender: TObject);
+    procedure cxButton10Click(Sender: TObject);
+    procedure cxButton11Click(Sender: TObject);
+    procedure cxButton12Click(Sender: TObject);
+    procedure cxButton13Click(Sender: TObject);
+    procedure cxCurrencyEdit5PropertiesChange(Sender: TObject);
+  private
+    { Private declarations }
+    //KKMFULLPRINT:boolean;
+  public
+    { Public declarations }
+  end;
+
+var
+  fmFormaOplaty: TfmFormaOplaty;
+
+implementation
+
+uses MainUnit, DMUnit, DigitUnit, LinkConnectionUnit;
+
+{$R *.dfm}
+
+procedure TfmFormaOplaty.cxButton10Click(Sender: TObject);
+begin
+ cxCurrencyEdit5.Visible:=true;
+ cxCurrencyEdit5.Align:=alClient;
+ cxCurrencyEdit5.Margins.Right:=0;
+ cxCurrencyEdit6.Value:=0;
+ cxCurrencyEdit6.Visible:=false;
+ cxButton13.Tag:=0;
+end;
+
+procedure TfmFormaOplaty.cxButton11Click(Sender: TObject);
+begin
+ cxCurrencyEdit6.Visible:=true;
+  cxCurrencyEdit6.Align:=alClient;
+  cxCurrencyEdit6.Properties.ReadOnly:=true;
+  cxCurrencyEdit6.Value:=OrdersSUMMA.AsCurrency;
+  cxCurrencyEdit6.Margins.Left:=0;
+ cxCurrencyEdit5.Visible:=false;
+ cxButton13.Tag:=1;
+end;
+
+procedure TfmFormaOplaty.cxButton12Click(Sender: TObject);
+begin
+   cxCurrencyEdit6.Visible:=true;
+  cxCurrencyEdit6.Align:=alClient;
+  cxCurrencyEdit6.Margins.Left:=8;
+  cxCurrencyEdit6.Value:=0;
+  cxCurrencyEdit6.Properties.ReadOnly:=false;
+ cxCurrencyEdit5.Visible:=true;
+  cxCurrencyEdit5.Align:=alLeft;
+  cxCurrencyEdit5.Width:=165;
+  cxCurrencyEdit5.Margins.Right:=8;
+  cxCurrencyEdit5.Value:=0;
+  cxButton13.Tag:=2;
+end;
+
+procedure TfmFormaOplaty.cxButton13Click(Sender: TObject);
+begin
+
+ case cxButton13.Tag of
+  0: begin
+      if cxCurrencyEdit5.Value = 0 then
+         OplataOrders(OrdersSUPPLIER.AsInteger,1, OrdersSUMMA.AsCurrency, true)
+      else if cxCurrencyEdit5.Value < OrdersSUMMA.AsCurrency then
+            MessageDlg('Не достаточно средств для оплаты!',mtWarning,[mbOk],0)
+      else OplataOrders(OrdersSUPPLIER.AsInteger,1, cxCurrencyEdit5.Value, true);
+     end;
+  1: OplataOrders(OrdersSUPPLIER.AsInteger,2, 0, true);
+  2: OplataOrders(OrdersSUPPLIER.AsInteger,100, cxCurrencyEdit5.Value, true);
+ end;
+end;
+
+procedure TfmFormaOplaty.cxButton14Click(Sender: TObject);
+begin
+if cxCurrencyEdit2.Value < 0 then
+    MessageDlg('Не достаточно средств для оплаты!',mtWarning,[mbOk],0)
+ else
+   OplataOrders(OrdersSUPPLIER.AsInteger,2, cxCurrencyEdit1.Value, true); // безналичными
+end;
+
+procedure TfmFormaOplaty.cxButton1Click(Sender: TObject);  // наличными
+begin
+if fastpay = 1 then
+  OplataOrders(OrdersSUPPLIER.AsInteger,1, cxCurrencyEdit1.Value, true)
+else
+cxPageControl1.ActivePageindex:=1;
+
+end;
+
+procedure TfmFormaOplaty.cxButton2Click(Sender: TObject); // без чека или в кредит клиенту
+begin
+if fastpay = 1 then
+ OplataOrders(OrdersSUPPLIER.AsInteger,1, cxCurrencyEdit1.Value, false)
+else
+cxPageControl1.ActivePageindex:=2;
+cxCurrencyEdit3.EditValue:=OrdersTOTAL_SUM.AsCurrency;
+//;
+end;
+
+procedure TfmFormaOplaty.cxButton3Click(Sender: TObject);
+begin
+ if cxCurrencyEdit2.Value < 0 then
+    MessageDlg('Не достаточно средств для оплаты!',mtWarning,[mbOk],0)
+ else
+  begin
+   cxButton3.Enabled:=false;
+   OplataOrders(OrdersSUPPLIER.AsInteger,1, cxCurrencyEdit1.Value, true);
+  end;
+end;
+
+procedure TfmFormaOplaty.cxButton5Click(Sender: TObject);
+begin
+if cxButton5.OptionsImage.ImageIndex = 0 then
+ begin
+   cxCurrencyEdit1.EditValue:=OrdersTOTAL_SUM.AsCurrency;
+   cxButton5.OptionsImage.ImageIndex := 1;
+ end
+else
+ begin
+   cxCurrencyEdit1.EditValue:=0;
+   cxButton5.OptionsImage.ImageIndex := 0;
+ end;
+end;
+
+procedure TfmFormaOplaty.cxButton6Click(Sender: TObject);
+begin
+if fastpay=2 then
+  close
+else
+cxPageControl1.ActivePageindex:=0;
+end;
+
+procedure TfmFormaOplaty.cxButton8Click(Sender: TObject);
+begin
+ if cxDBLookupComboBox1.Text = '' then exit;
+
+ if cxCurrencyEdit3.Value <= 0 then
+  begin
+   if MessageDlg('Вы внесли полную сумму! Закрыть счет по налу?',mtWarning,[mbYes, mbNo],0) = mrYes then
+   OplataOrders(OrdersSUPPLIER.AsInteger,1, cxCurrencyEdit1.Value, true);
+  end
+  else
+   begin
+    cxButton8.Enabled:=false;
+    OplataOrders(cxDBLookupComboBox1.EditValue,3, cxCurrencyEdit4.Value, true);
+   end;
+end;
+
+procedure TfmFormaOplaty.cxCurrencyEdit1Click(Sender: TObject);
+begin
+ DigitForm:=TDigitForm.Create(self);
+ DigitForm.Edit1.PasswordChar:=Char(#0);
+ DigitForm.st:=false;
+ DigitForm.ShowModal;
+ if DigitForm.Edit1.Text <>'' then
+  begin
+   cxCurrencyEdit1.Value:=StrToFloat(DigitForm.Edit1.Text);
+
+  end;
+ DigitForm.Free;
+end;
+
+procedure TfmFormaOplaty.cxCurrencyEdit1KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+if Key = #13 then
+   cxButton3.Click;
+end;
+
+procedure TfmFormaOplaty.cxCurrencyEdit1PropertiesChange(Sender: TObject);
+begin
+if cxCurrencyEdit1.Value > OrdersTOTAL_SUM.AsFloat then
+  cxCurrencyEdit2.Value:=cxCurrencyEdit1.Value-OrdersTOTAL_SUM.AsFloat
+else cxCurrencyEdit2.Value:=0;
+end;
+
+procedure TfmFormaOplaty.cxCurrencyEdit3Click(Sender: TObject);
+begin
+ DigitForm:=TDigitForm.Create(self);
+ DigitForm.Edit1.PasswordChar:=Char(#0);
+ DigitForm.ShowModal;
+ if DigitForm.Edit1.Text <>'' then
+  begin
+   cxCurrencyEdit3.Value:=StrToFloat(DigitForm.Edit1.Text);
+   cxCurrencyEdit4.Value:=OrdersTOTAL_SUM.AsFloat-cxCurrencyEdit3.Value;
+  end;
+ DigitForm.Free;
+end;
+
+procedure TfmFormaOplaty.cxCurrencyEdit4Click(Sender: TObject);
+begin
+ DigitForm:=TDigitForm.Create(self);
+ DigitForm.Edit1.PasswordChar:=Char(#0);
+ DigitForm.ShowModal;
+ if DigitForm.Edit1.Text <>'' then
+  begin
+   cxCurrencyEdit4.Value:=StrToFloat(DigitForm.Edit1.Text);
+   cxCurrencyEdit3.Value:=OrdersTOTAL_SUM.AsFloat-cxCurrencyEdit4.Value;
+  end;
+ DigitForm.Free;
+end;
+
+procedure TfmFormaOplaty.cxCurrencyEdit5Click(Sender: TObject);
+begin
+ DigitForm:=TDigitForm.Create(self);
+ DigitForm.Edit1.PasswordChar:=Char(#0);
+ DigitForm.st:=false;
+ DigitForm.ShowModal;
+ if DigitForm.Edit1.Text <>'' then
+  begin
+   cxCurrencyEdit5.Value:=StrToFloat(DigitForm.Edit1.Text);
+   cxCurrencyEdit6.Value:=OrdersSUMMA.AsCurrency - cxCurrencyEdit5.Value;
+  end;
+ DigitForm.Free;
+end;
+
+procedure TfmFormaOplaty.cxCurrencyEdit5PropertiesChange(Sender: TObject);
+begin
+if cxButton13.Tag = 0 then
+  begin
+   if cxCurrencyEdit5.Value > OrdersSUMMA.AsFloat then
+     Label8.Caption:=FormatCurr('# ### ##0.##', cxCurrencyEdit5.Value-OrdersSUMMA.AsFloat)
+   else Label8.Caption:='0';
+  end
+else if cxButton13.Tag = 2 then
+ begin
+   if cxCurrencyEdit5.Value > OrdersSUMMA.AsFloat + cxCurrencyEdit6.Value then
+     Label8.Caption:=FormatCurr('# ### ##0.##', cxCurrencyEdit5.Value-OrdersSUMMA.AsFloat-cxCurrencyEdit6.Value)
+   else Label8.Caption:='0';
+ end
+else Label8.Caption:='0';
+
+end;
+
+procedure TfmFormaOplaty.cxCurrencyEdit6Click(Sender: TObject);
+begin
+ if cxCurrencyEdit6.Properties.ReadOnly then exit;
+
+ DigitForm:=TDigitForm.Create(self);
+ DigitForm.Edit1.PasswordChar:=Char(#0);
+ DigitForm.st:=false;
+ DigitForm.ShowModal;
+ if DigitForm.Edit1.Text <>'' then
+  begin
+   cxCurrencyEdit6.Value:=StrToFloat(DigitForm.Edit1.Text);
+   cxCurrencyEdit5.Value:=OrdersSUMMA.AsCurrency - cxCurrencyEdit6.Value;
+  end;
+ DigitForm.Free;
+end;
+
+procedure TfmFormaOplaty.DBText2Click(Sender: TObject);
+begin
+cxCurrencyEdit1.Value:=OrdersTOTAL_SUM.AsCurrency;
+cxCurrencyEdit3.Value:=OrdersTOTAL_SUM.AsCurrency;
+cxCurrencyEdit2.Value:=0;
+cxCurrencyEdit4.Value:=0;
+end;
+
+procedure TfmFormaOplaty.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+ tbPerson.Active:=false;
+end;
+
+procedure TfmFormaOplaty.FormCreate(Sender: TObject);
+begin
+ SetConnection(TForm(Self), dm.FDB);
+ fstMain.RoundCornerOf(Panel3);
+
+ cxCurrencyEdit5.Properties.Images:=cxImageList2;
+with cxCurrencyEdit5.Properties.Buttons do
+        begin
+          with Add as TcxEditButton do
+            begin
+             Kind := bkGlyph;
+             Default := true;
+             LeftAlignment:=true;
+             ImageIndex:=0;
+            end;
+        end;
+cxCurrencyEdit6.Properties.Images:=cxImageList2;
+with cxCurrencyEdit6.Properties.Buttons do
+        begin
+          with Add as TcxEditButton do
+            begin
+             Kind := bkGlyph;
+             Default := true;
+             LeftAlignment:=true;
+             ImageIndex:=1;
+            end;
+        end;
+end;
+
+procedure TfmFormaOplaty.FormShow(Sender: TObject);
+begin
+
+cxCurrencyEdit5.Visible:=true;
+ cxCurrencyEdit5.Align:=alClient;
+ cxCurrencyEdit5.Margins.Right:=0;
+ cxCurrencyEdit6.Visible:=false;
+
+ cxButton13.Tag:=0;
+
+if fastpay = 2 then
+ cxPageControl1.ActivePageindex:=1
+else
+ begin
+ cxPageControl1.ActivePageindex:=0;
+if fastpay = 1 then
+ begin
+   cxButton1.Caption:='Наличными';
+   cxButton2.Caption:='Без чека';
+ end
+ else begin cxButton1.Caption:='ОПЛАТА';
+   cxButton2.Caption:='В кредит';
+ end;
+ end;
+ tbPerson.Active:=true;
+ cxButton3.Enabled:=true;
+ cxButton8.Enabled:=true;
+ cxCurrencyEdit1.EditValue:=0;//OrdersTOTAL_SUM.AsCurrency;
+ cxButton5.OptionsImage.ImageIndex := 0;
+end;
+
+procedure TfmFormaOplaty.Image1Click(Sender: TObject);
+begin
+Close;
+end;
+
+procedure TfmFormaOplaty.OplataOrders(Klient, Fo: integer; mani:Double; isprint:Boolean);
+Label 1, 2;
+var i,c,j:byte; ini:TIniFile; repFilename:String;
+begin
+
+try
+    Close_orders.params[0].asstring:=dm.Current_orderUID.AsString;
+    Close_orders.Execute();
+  if spis then
+    Spisanie.params[0].asstring:=dm.Current_orderUID.AsString;
+    Spisanie.Execute();
+except on e:exception do begin    showMessage(e.Message);
+  //MessageBox(self.Handle, 'Ошибка закрытия счета!', 'Ошибка!!!'+#13+PChar(e.Message), mb_IconError or mb_OK);
+  exit;
+end;
+end;
+if dm.All_Podrazd.Active=false then
+ begin
+     dm.All_Podrazd.params[0].asInteger:=Station;      //Все подразделения данной станции
+     dm.All_Podrazd.open;
+ end;
+
+//Если файл подзаказника не существует ничего не делаем
+if FileExists(ExtractFilePath(Application.ExeName)+'Reports\Service.fr3') then
+begin
+//Для начало получаем список всех принтеров, которые созданы в программе и пробегаемся по ним
+//dm.tbPrinters.Active:=true;
+ // dm.tbPrinters.First;
+  //while dm.tbPrinters.Eof <> true do
+   begin
+    // dm.All_Podrazd.Filter:=dm.All_PodrazdPRINTERNAME.FieldName+' = '''+dm.tbPrintersNAME.AsString+'''';
+     if dm.All_Podrazd.RecordCount > 0 then
+      begin
+        dm.Orders_item.Filter:='';
+        dm.All_Podrazd.First;
+        while dm.All_Podrazd.Eof <> true do
+          begin
+            dm.Orders_item.Filter:=dm.Orders_itemIDPODRAZD.FieldName+' in ('+dm.All_PodrazdID.AsString+')';
+            dm.Orders_item.Filtered:=true;
+
+            if (dm.Orders_item.RecordCount > 0) and (Printer.Printers.Count > 0) then
+               begin
+                 for i := 0 to Printer.Printers.Count - 1 do
+                   if Printer.Printers.Strings[i]=dm.All_podrazdPRINTERNAME.AsString then
+                      begin
+                       //frxReport1.LoadFromFile(ExtractFilePath(Application.ExeName)+'Reports\Service.fr3',true);
+                        if FileExists(ExtractFilePath(Application.ExeName)+'Reports\'+dm.All_PodrazdFILE_NAME.AsString) then
+                           frxReport1.LoadFromFile(ExtractFilePath(Application.ExeName)+'Reports\'+dm.All_PodrazdFILE_NAME.AsString,true)
+                        else  MessageDlg('Не найден файл:'+#13+ExtractFilePath(Application.ExeName)+'Reports\'+dm.All_PodrazdFILE_NAME.AsString, mtError, [mbOk], 0);
+                        frxReport1.Variables.Variables['station']:=''''+fstMain.tbStationNAME.AsString+'''';
+                        frxReport1.Variables.Variables['Chet']:=''''+fstMain.lbCheck.Caption+'''';
+                        frxReport1.Variables.Variables['Oficiant']:=''''+dm.Current_orderOFFICIANT.AsString+'''';
+                        frxReport1.Variables.Variables['Stol']:=''''+dm.Current_orderSTOL.AsString+'''';
+                        //frxReport1.Variables.Variables['Podrazd']:=''''+dm.All_PodrazdNAME.AsString+'''';
+
+                        frxReport1.PrintOptions.Printer:=dm.All_podrazdPRINTERNAME.AsString;
+                        frxReport1.PrintOptions.ShowDialog:=false;
+                        frxReport1.PrintOptions.Copies:=1;
+
+                        if frxReport1.PrepareReport then
+                          frxReport1.Print;
+                        break;
+                       end;
+                 end;
+            dm.Orders_item.Filtered:=false;
+            dm.All_Podrazd.Next
+          end;
+
+
+
+
+      end;   //if dm.AllPodrazd.VisibleRecordCount > 0
+
+     //dm.tbPrinters.Next;
+   end;      //While dmTbPrinters.Eof <> true
+
+end;
+
+  Oplata.params[0].asstring:=dm.Current_orderUID.AsString;
+  Oplata.params[1].asInteger:=Klient;
+  Oplata.params[2].asInteger:=Fo;
+  Oplata.params[3].asFloat:=mani;
+  Oplata.Execute();
+
+ if OrdersDELIV.AsInteger = 0 then
+    repFilename:='Reports\GuestCheck.fr3'
+ else repFilename:='Reports\Dostavka.fr3';
+ ini:=TIniFile.Create(ExtractFilePath(ParamStr(0))+'config.ini');
+
+ fstMain.PayButton.Tag:=0;
+ if FileExists(ExtractFilePath(Application.ExeName)+ repFilename) then
+  begin
+
+   if (isprint) and (Printer.Printers.Count > 0) then
+     for j := 0 to prnts.Count - 1 do
+       for i := 0 to Printer.Printers.Count - 1 do
+         if Printer.Printers.Strings[i]= prnts[j] then
+            begin
+             frxReport1.LoadFromFile(ExtractFilePath(Application.ExeName)+ repFilename,true);
+             frxReport1.Variables.Variables['orders']:=''''+dm.Current_orderUID.AsString+'''';
+             frxReport1.PrintOptions.Printer:=prnts[j];
+             frxReport1.PrintOptions.ShowDialog:=false;
+             if frxReport1.PrepareReport(true) then
+               for c := 0 to ini.ReadInteger('DATABASE', 'PRINTCOPIES', 1) - 1 do
+                frxReport1.Report.Print;
+            end;
+  end;
+
+   ini.Free;
+   dm.Current_order.Refresh;
+   fstMain.DBLookupComboBox1.Enabled:=false;
+   fstMain.lbCheck.Caption:='';
+   fstMain.Label2.Caption:='';
+   fstMain.Label3.Caption:='';
+   fstMain.Label4.Caption:='';
+
+end;
+
+procedure TfmFormaOplaty.Orders1AfterScroll(DataSet: TDataSet);
+begin
+cxCurrencyEdit1.Value:=OrdersTOTAL_SUM.AsCurrency;
+cxCurrencyEdit3.Value:=OrdersTOTAL_SUM.AsCurrency;
+cxCurrencyEdit2.Value:=0;
+cxCurrencyEdit4.Value:=0;
+cxPageControl1.ActivePageindex:=0;
+end;
+
+end.

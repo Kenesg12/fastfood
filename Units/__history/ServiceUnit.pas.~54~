@@ -1,0 +1,245 @@
+unit ServiceUnit;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons, FIBQuery,
+  pFIBQuery, iniFiles, cxControls, cxContainer, cxEdit, cxTextEdit, cxMaskEdit,
+  cxButtonEdit, DB, FIBDataSet, pFIBDataSet, cxProgressBar, pFIBScripter,
+  frxClass, cxPC, Printers;
+
+type
+  TfmService = class(TForm)
+    LoadData: TpFIBQuery;
+    OpenDialog1: TOpenDialog;
+    upd_replast: TpFIBQuery;
+    SendData: TpFIBDataSet;
+    QTxt: TpFIBQuery;
+    SendDataID: TFIBBCDField;
+    SendDataIDSMENY: TFIBBCDField;
+    Label1: TLabel;
+    cxPageControl1: TcxPageControl;
+    cxTabSheet1: TcxTabSheet;
+    cxTabSheet2: TcxTabSheet;
+    cxProgressBar1: TcxProgressBar;
+    cxButton2: TcxButton;
+    cxButtonEdit2: TcxButtonEdit;
+    cxButton1: TcxButton;
+    cxButtonEdit1: TcxButtonEdit;
+    cxButton3: TcxButton;
+    cxButton4: TcxButton;
+    cxButton5: TcxButton;
+    frxReport1: TfrxReport;
+    cxButton6: TcxButton;
+    tbReports: TpFIBDataSet;
+    tbReportsID: TFIBIntegerField;
+    tbReportsNAME: TFIBStringField;
+    tbReportsREPORT_FILE: TFIBBlobField;
+    cxTabSheet3: TcxTabSheet;
+    cxButton7: TcxButton;
+    Vozvrat: TpFIBQuery;
+    Spisanie: TpFIBQuery;
+    Close_orders: TpFIBQuery;
+    procedure cxButton1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure cxButtonEdit1PropertiesButtonClick(Sender: TObject;
+      AButtonIndex: Integer);
+    procedure cxButtonEdit2PropertiesButtonClick(Sender: TObject;
+      AButtonIndex: Integer);
+    procedure cxButton2Click(Sender: TObject);
+    procedure cxButton3Click(Sender: TObject);
+    procedure cxButton4Click(Sender: TObject);
+    procedure cxButton7Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fmService: TfmService;
+  cnl:Boolean;
+implementation
+
+uses MainUnit, FormaOplatyUnit, DMUnit, PrihodUnit;
+
+{$R *.dfm}
+
+procedure TfmService.cxButton1Click(Sender: TObject);
+VAR INI:TINIFILE;
+begin
+cxButton2.Enabled:=false;
+if cxButtonEdit1.EditingText <> '' then
+ try
+   dm.pFIBScripter1.Script.Clear;
+   dm.pFIBScripter1.Script.LoadFromFile(cxButtonEdit1.EditingText);
+   dm.pFIBScripter1.ExecuteScript;
+   dm.pFIBScripter1.Transaction.Commit;
+   INI:=TINIFILE.Create(ExtractFilePath(ParamStr(0))+'config.ini');
+   INI.WriteString('LOCALSETTINGS', 'UPDPATH', cxButtonEdit1.EditingText);
+   INI.FREE;
+   ShowMessage('Данные успешно загружены!');
+   close;
+ finally
+   cxButton2.Enabled:=true;
+ end;
+end;
+
+procedure TfmService.cxButton2Click(Sender: TObject);
+VAR INI:TINIFILE;
+  last_id:integer;
+  txt:TStringList;
+begin
+if cxButton2.Caption = 'Отмена' then
+ begin
+  cnl:=true;
+  cxButton2.Caption:='Выгрузить данные';
+ end
+else
+if cxButtonEdit2.EditingText <> '' then
+ begin
+   cxButton2.Caption := 'Отмена';
+   cnl:=false;
+   SendData.Open;
+   {b:=TMemoryStream.Create;
+   (SendDataSQL_SCRP as TBlobField).SaveToStream(b);
+   b.Position:=0;
+   b.SaveToFile(cxButtonEdit2.EditingText+SendDataIDSMENY.AsString+'_'+DateToStr(now)+'.expd');
+   b.Free;}
+   cxProgressBar1.Properties.Max:=dm.DB.QueryValue('select count(*) from ibe$log_tables where id > (select idlogs from rep$last)', 0);
+   txt:=TStringList.Create;
+   SendData.First;
+   cxProgressBar1.Visible:=true;
+   cxButton1.Enabled:=false;
+   while SendData.Eof <> true do
+    begin
+     QTxt.ExecWP([SendDataID.AsInteger]);
+     txt.Append(QTxt.FN('SQL_SCRP').AsString);
+     SendData.Next;
+     cxProgressBar1.Position:= SendData.RecNo;
+     Label1.Caption:=IntToStr(SendData.RecNo)+' из '+FloatToStr(cxProgressBar1.Properties.Max);
+     Application.ProcessMessages;
+     if cnl then
+      begin
+        cxButton2.Caption:='Выгрузить данные';
+        cxButton1.Enabled:=true;
+        exit;
+      end;
+    end;
+
+   txt.SaveToFile(cxButtonEdit2.EditingText+SendDataIDSMENY.AsString+'_'+DateToStr(now)+'.upd');
+   last_id:=SendDataID.AsInteger;
+   SendData.close;
+   cxProgressBar1.Visible:=false;
+   upd_replast.ExecWP([last_id]);
+   INI:=TINIFILE.Create(ExtractFilePath(ParamStr(0))+'config.ini');
+   INI.WriteString('LOCALSETTINGS', 'EXTPATH', cxButtonEdit2.EditingText);
+   INI.FREE;
+   cxButton1.Enabled:=true;
+   ShowMessage('Данные успешно выгружены!');
+   Close;
+ end;
+end;
+
+procedure TfmService.cxButton3Click(Sender: TObject);
+begin
+fmPrihod.ShowModal;
+end;
+
+procedure TfmService.cxButton4Click(Sender: TObject);
+var
+  b: TMemoryStream;
+begin
+if tbReports.Locate('NAME', TcxButton(Sender).Hint, []) then
+ begin
+    b:=TMemoryStream.Create;
+    (tbReportsREPORT_FILE as TBlobField).SaveToStream(b);
+    b.Position:=0;
+    frxReport1.LoadFromStream(b);
+    b.Free;
+    frxReport1.PrintOptions.ShowDialog:=false;
+    frxReport1.PrepareReport(true);
+    frxReport1.Print;
+ end;
+end;
+
+procedure TfmService.cxButton7Click(Sender: TObject);
+var i:Integer;
+begin
+if dm.Current_order.RecordCount = 0 then exit;
+if (dm.Orders_item.Active = true) and (dm.Orders_item.RecordCount = 0) then exit;
+
+if dm.Orders_item.UpdatesPending then
+  begin
+     dm.Orders_item.UpdateTransaction.StartTransaction;
+     try
+       dm.Orders_item.ApplyUpdToBase;
+       dm.Orders_item.UpdateTransaction.Commit;
+       dm.Orders_item.CommitUpdToCach;
+     except
+        dm.Orders_item.UpdateTransaction.Rollback; exit;
+     end;
+  end;
+
+close;
+try
+    Vozvrat.ExecWP([dm.Current_orderUID.AsString]);
+    Close_orders.ExecWP([dm.Current_orderUID.AsString]);
+    Spisanie.ExecWP([dm.Current_orderUID.AsString]);
+except
+  MessageBox(self.Handle, 'Ошибка закрытия счета!', 'Ошибка!!!', mb_IconError or mb_OK);
+  exit;
+end;
+
+if FileExists(ExtractFilePath(Application.ExeName)+ 'Reports\Vozvrat.fr3') then
+ begin
+ for i := 0 to Printer.Printers.Count - 1 do
+ if Printer.Printers.Strings[i]=fmMain.tbStationPRINTER.AsString then
+  begin
+   frxReport1.LoadFromFile(ExtractFilePath(Application.ExeName)+ 'Reports\Vozvrat.fr3',true);
+   frxReport1.Variables.Variables['orders']:=''''+dm.Current_orderUID.AsString+'''';
+   frxReport1.PrintOptions.Printer:=fmMain.tbStationPRINTER.AsString;
+   frxReport1.PrintOptions.ShowDialog:=false;
+   if frxReport1.PrepareReport(true) then
+     frxReport1.Report.Print;
+
+   break;
+  end;
+ end else MessageDlg('Файл: "'+ExtractFilePath(Application.ExeName)+ 'Reports\Vozvrat.fr3"'+' не найден.', mtError, [mbOk], 0);
+  dm.Orders_item.Filtered:=false;
+  dm.Current_order.FullRefresh;
+   fmMain.lbCheck.Caption:='';
+   fmMain.Label2.Caption:='';
+   fmmain.Label3.Caption:='';
+   fmmain.Label4.Caption:='';
+ fmMain.UpdateGrid;
+end;
+
+procedure TfmService.cxButtonEdit1PropertiesButtonClick(Sender: TObject;
+  AButtonIndex: Integer);
+begin
+OpenDialog1.Filter:='Данные спрвочников|*.upd|Все файлы|*.*';
+if OpenDialog1.Execute then
+   cxButtonEdit1.EditValue:=OpenDialog1.FileName;
+end;
+
+procedure TfmService.cxButtonEdit2PropertiesButtonClick(Sender: TObject;
+  AButtonIndex: Integer);
+begin
+OpenDialog1.Filter:='Данные спрвочников|*.upd|Все файлы|*.*';
+ if OpenDialog1.Execute then
+   cxButtonEdit2.EditValue:=ExtractFilePath(OpenDialog1.FileName);
+end;
+
+procedure TfmService.FormShow(Sender: TObject);
+var ini:TIniFile;
+begin
+  ini:=TIniFile.Create(ExtractFilePath(ParamStr(0))+'config.ini');
+  cxButtonEdit1.EditValue:=ini.ReadString('LOCALSETTINGS', 'UPDPATH', '');
+  cxButtonEdit2.EditValue:=ini.ReadString('LOCALSETTINGS', 'EXTPATH', '');
+  INI.Free;
+  tbReports.Active:=true;
+end;
+
+end.

@@ -1,0 +1,263 @@
+unit ShowReport;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, AdvGlowButton, frxClass, frxPreview, Printers, DB,
+  StdCtrls, Menus, cxLookAndFeelPainters, cxButtons,
+  iniFiles, cxGraphics, cxLookAndFeels, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, frxFDComponents, FireDAC.UI.Intf, FireDAC.VCLUI.Wait,
+  FireDAC.Comp.UI;
+
+type
+  TfmShowReport = class(TForm)
+    frxPreview1: TfrxPreview;
+    AdvGlowButton1: TcxButton;
+    cxButton1: TcxButton;
+    cxButton2: TcxButton;
+    Close_orders: TFDQuery;
+    Close_ordersSTOL_LABEL: TWideStringField;
+    Close_ordersSTATUS: TSmallintField;
+    Close_ordersPIC: TIntegerField;
+    Close_ordersOPEN_COUNT: TSmallintField;
+    FDCommand1: TFDCommand;
+    tbStation: TFDQuery;
+    Current_order: TFDQuery;
+    Current_orderINOMER: TIntegerField;
+    Current_orderIDWAITER: TIntegerField;
+    Current_orderIDKLINET: TIntegerField;
+    Current_orderIDKOORD: TIntegerField;
+    Current_orderGUEST_CNT: TSmallintField;
+    Current_orderMACCOUNT: TFloatField;
+    Current_orderOBSLUZH: TCurrencyField;
+    Current_orderISBALANS: TIntegerField;
+    Current_orderISGAME: TSmallintField;
+    Current_orderDT: TSQLTimeStampField;
+    Current_orderGAME: TCurrencyField;
+    Current_orderDELIVERY: TIntegerField;
+    Current_ordercur_bal: TCurrencyField;
+    Current_orderSTOL: TWideStringField;
+    Current_orderUID: TWideStringField;
+    frxReport2: TfrxReport;
+    frxFDComponents1: TfrxFDComponents;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    FDCommand2: TFDCommand;
+    procedure AdvGlowButton1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormMouseWheel(Sender: TObject; Shift: TShiftState;
+      WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure ChChecked(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure cxButton1Click(Sender: TObject);
+    procedure cxButton2Click(Sender: TObject);
+    procedure ComboBox1Change(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    cls:boolean;
+  end;
+
+var
+  fmShowReport: TfmShowReport;
+  printed,ON_CLOSE_ORDER_SHOWMESSAGE:boolean;
+  FDB:TFDConnection;
+  DUID:String;
+  vcPrinter:TStringlist;
+  Station:Integer;
+implementation
+
+uses  LinkConnectionUnit;
+
+{$R *.dfm}
+
+procedure TfmShowReport.AdvGlowButton1Click(Sender: TObject);
+begin
+cls:=true;
+close; 
+end;
+
+procedure TfmShowReport.ChChecked(Sender: TObject);
+begin
+TControl(TControl(Sender).Owner.FindComponent('Combo')).Enabled:=not TControl(TControl(Sender).Owner.FindComponent('combo')).Enabled;
+end;
+
+procedure TfmShowReport.ComboBox1Change(Sender: TObject);
+var ini:TIniFile;
+begin
+  ini:=TIniFile.Create(ExtractFilePath(ParamStr(0))+'config.ini');
+  ini.WriteInteger('FRONTOFFICE', 'PRINTCNT', TComboBox(Sender).ItemIndex);
+  ini.Free;
+end;
+
+procedure TfmShowReport.cxButton1Click(Sender: TObject);
+var i,j:byte;
+begin
+if vcPrinter.Count = 0 then exit;
+    for j := 0 to vcPrinter.Count - 1 do
+    for i := 0 to Printer.Printers.Count - 1 do
+ if Printer.Printers.Strings[i]=VCPRINTER[j] then
+    begin
+     frxPreview1.Report.PrintOptions.Printer:=VCPRINTER[j];
+     frxPreview1.Report.PrintOptions.ShowDialog:=false;
+     frxPreview1.Print;
+     printed:=true;
+    end;
+AdvGlowButton1.Visible:=false;
+Cls:=false;
+end;
+
+procedure TfmShowReport.cxButton2Click(Sender: TObject);
+var MesDlg:TForm; Comb:TComboBox;{ Ch:TCheckBox;} i,j:byte;  ini:TIniFile; mg:String;
+begin
+
+
+ ini:=TIniFile.Create(ExtractFilePath(ParamStr(0))+'config.ini');
+if ON_CLOSE_ORDER_SHOWMESSAGE then
+ begin
+  MesDlg:=CreateMessageDialog('¬ы действительно хотите закрыть счет?'+#13+#13+'                          число копий',mtConfirmation,[mbYES,mbNO]);
+  Comb:=TComboBox.Create(MesDlg);
+  Comb.Width:=60;
+  Comb.Left:=200;
+  Comb.Top:=35;
+  {Comb.Font.Height:=20;
+  Comb.Height:=28;}
+  COmb.Font.Style:=[fsBold];
+  Comb.Parent:=MesDlg;
+  Comb.Items.Insert(0,'1');
+  Comb.Items.Insert(1,'2');
+  Comb.Items.Insert(2,'3');
+  Comb.ItemIndex:=ini.ReadInteger('FRONTOFFICE', 'PRINTCNT', 0);
+  Comb.Name:='Combo';
+  Comb.Style:=csOwnerDrawFixed;
+  Comb.OnChange:=ComboBox1Change;
+  if MesDlg.ShowModal <> mrYES then begin MesDlg.Free; exit; end;
+  //if Ch.State = cbChecked then
+
+  if Printer.Printers.Count = 0 then begin MessageDlg('ѕринтер не установлен!', mtWarning, [mbOk], 0); MesDlg.Free; exit; end;
+  for j := 0 to VCPRINTER.Count - 1 do
+  for i := 0 to Printer.Printers.Count - 1 do
+ if Printer.Printers.Strings[i]=VCPRINTER[j] then
+    begin
+     frxPreview1.Report.PrintOptions.Printer:=VCPRINTER[j];
+     frxPreview1.Report.PrintOptions.ShowDialog:=false;
+     frxPreview1.Report.PrintOptions.Copies:=StrToInt(Comb.Text);
+     frxPreview1.Print;
+     break;
+    end;
+  MesDlg.Free;
+  AdvGlowButton1.Visible:=false;
+ end {else
+ if printed = false then
+  begin
+   for i := 0 to Printer.Printers.Count - 1 do
+   if Printer.Printers.Strings[i]=VCPRINTER then
+    begin
+     frxPreview1.Report.PrintOptions.Printer:=VCPRINTER;
+     frxPreview1.Report.PrintOptions.ShowDialog:=false;
+     frxPreview1.Print;
+     printed:=true;
+     break;
+    end;
+    AdvGlowButton1.Visible:=false;
+  end};
+{if dm.Current_orderISGAME.AsInteger = 1 then
+   begin
+       dm.AddEvents.Params[0].AsString:=Stol[fmMain.pc1.ActivePageIndex, cur_id].zakaz;
+       dm.AddEvents.Params[1].AsInteger:=10;
+     //  dm.AddEvents.Transaction.StartTransaction;
+       dm.AddEvents.Execute();
+     //  dm.AddEvents.Transaction.Commit;
+   end; }
+
+cls:=true;
+//FDCommand1.Params[0].AsInteger:=Current_orderIDWAITER.AsInteger;
+//FDCommand1.Params[1].AsString:=Current_orderUID.AsString;
+FDCommand2.Params[0].AsString:=DUID;;
+FDCommand2.Execute;
+
+showMessage('3');
+{Close_orders.Close;
+Close_orders.Params[0].AsString:=DUID;
+Close_orders.Transaction.StartTransaction;  showMessage('3');
+Close_orders.Active:=true;            showMessage('4');
+showMessage('5');
+if Close_ordersOPEN_COUNT.AsInteger = 0 then Close;
+Close_orders.Transaction.Commit;   }
+
+{if ini.ReadBool('FRONTOFFICE', 'PAY', false) = true then
+  begin
+   fmPay:=TfmPay.Create(self);
+   fmPay.contr.Params[0].AsString:=dm.Current_orderUID.AsString;
+   fmPay.contr.Open;
+     begin
+     fmPay.cxCurrencyEdit3.EditValue:=fmPay.contrTOTAL_SUM.AsCurrency;
+     fmPay.ShowModal;
+     end;
+   fmPay.Free;
+  end;}
+Current_order.refresh;
+//FDCommand1.Execute;
+ini.Free;
+//fmmain.ViewKarta(Stol[fmMain.pc1.ActivePageIndex, cur_id].stolGuid);
+//add:=false;
+Close;
+end;
+
+procedure TfmShowReport.FormShow(Sender: TObject);
+begin
+Current_order.Close;
+Current_order.Params[0].AsString:=DUID;
+Current_order.Active:=true;
+
+frxPreview1.SetFocus;
+Cls:=false;
+printed:=false;
+if vcPrinter.Count = 0 then
+  cxButton1.ShowHint:=true;
+
+frxReport2.LoadFromFile(ExtractFilePath(Application.ExeName)+ 'Reports\GuestCheck.fr3',true);
+ frxReport2.Variables.Variables['orders']:=''''+Current_orderUID.AsString+'''';
+ frxReport2.Preview:=fmShowReport.frxPreview1;
+ fmShowReport.AdvGlowButton1.Visible:=true;
+
+ frxReport2.PrepareReport;
+end;
+
+procedure TfmShowReport.FormMouseWheel(Sender: TObject; Shift: TShiftState;
+  WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
+begin
+frxPreview1.MouseWheelScroll(WheelDelta);
+end;
+
+procedure TfmShowReport.FormCloseQuery(Sender: TObject;
+  var CanClose: Boolean);
+begin
+CanClose:=Cls;
+cxButton2.ShowHint:=false;
+end;
+                                             
+procedure TfmShowReport.FormCreate(Sender: TObject);
+begin
+SetConnection(TForm(Self), FDB);
+Close_orders.Transaction:=fdb.UpdateTransaction;
+With tbStation do
+ begin
+  Open('select s.Printer, s.on_close_order_showmessage from tbStation s join documents d on s.id = d.idstation where d.uid='''+DUID+'''');
+  vcPrinter:=TStringList.Create;
+  vcPrinter.Delimiter:=',';
+  vcPrinter.DelimitedText:=FieldByname('Printer').AsString;
+  ON_CLOSE_ORDER_SHOWMESSAGE:= FieldByname('on_close_order_showmessage').AsInteger=1;
+ end;
+frxFDComponents1.DefaultDatabase:=FDB;
+
+if not ON_CLOSE_ORDER_SHOWMESSAGE then
+ cxButton1.Visible:=true
+else cxButton1.Visible:=false;
+end;
+
+end.

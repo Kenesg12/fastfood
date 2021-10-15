@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TfrxReport Version="4.7.1" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" PrintOptions.PrintOnSheet="0" PrintOptions.ShowDialog="False" ReportOptions.CreateDate="40010.3953282292" ReportOptions.Description.Text="" ReportOptions.LastChange="40328.6555917245" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." OnReportPrint="frxReport1OnReportPrint" PropData="044C65667403D00003546F7003780108446174617365747301010C2E00000020446174615365743D22667278444244617461736574312220446174615365744E616D653D2253657276696365220000095661726961626C657301010C16000000204E616D653D22204E65772043617465676F7279312200010C0F000000204E616D653D2273746174696F6E2200010C0C000000204E616D653D22436865742200010C10000000204E616D653D224F66696369616E742200010C0C000000204E616D653D2253746F6C2200010C0F000000204E616D653D22506F6472617A64220000055374796C650100">
+  <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+  <TfrxReportPage Name="Page1" PaperWidth="60" PaperHeight="297" PaperSize="256" LeftMargin="3" RightMargin="3" TopMargin="5" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" HGuides.Text="" VGuides.Text="">
+    <TfrxReportTitle Name="ReportTitle1" Height="68.03154" Left="0" Top="18.89765" Width="204.09462">
+      <TfrxMemoView Name="Memo1" Left="3.77953" Top="31.55906" Width="181.41744" Height="11.33859" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[&#60;Date&#62;]  [Time #dhh:mm]"/>
+      <TfrxLineView Name="Line1" Left="3.77953" Top="6" Width="192.75603" Height="0" ShowHint="False" Frame.Style="fsDot" Frame.Typ="4" Frame.Width="3"/>
+      <TfrxMemoView Name="Memo2" Left="4.04731" Top="20" Width="90.70872" Height="11.33859" ShowHint="False" DisplayFormat.DecimalSeparator="," Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" VAlign="vaCenter" Text="счет [Chet]"/>
+      <TfrxMemoView Name="Memo3" Left="3.77953" Top="43.45671" Width="94.48825" Height="15.11812" ShowHint="False" DisplayFormat.DecimalSeparator="," Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[Oficiant]"/>
+      <TfrxMemoView Name="Memo4" Left="110.04731" Top="42.7953" Width="79.37013" Height="15.11812" ShowHint="False" DisplayFormat.DecimalSeparator="," Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="[Podrazd]"/>
+      <TfrxMemoView Name="Memo5" Left="73.25201" Top="20.89765" Width="117.16543" Height="22.67718" ShowHint="False" DisplayFormat.DecimalSeparator="," Font.Charset="1" Font.Color="0" Font.Height="-19" Font.Name="Arial" Font.Style="1" HAlign="haRight" ParentFont="False" WordWrap="False" Text="[Stol]"/>
+      <TfrxLineView Name="Line2" Left="3.77953" Top="60.47248" Width="188.9765" Height="0" ShowHint="False" Frame.Style="fsDot" Frame.Typ="4" Frame.Width="3"/>
+      <TfrxMemoView Name="Memo8" Left="3.77953" Top="4.77953" Width="185.19697" Height="18.89765" ShowHint="False" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="Станция:[station]"/>
+    </TfrxReportTitle>
+    <TfrxMasterData Name="MasterData1" Height="30.23624" Left="0" Top="147.40167" Width="204.09462" ColumnWidth="0" ColumnGap="0" DataSet="frxDBDataset1" DataSetName="Service" RowCount="0">
+      <TfrxMemoView Name="Memo6" Left="7.77953" Top="0" Width="154.96073" Height="30.23624" ShowHint="False" DataField="VCNAME" DataSet="frxDBDataset1" DataSetName="Service" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" ParentFont="False" WordBreak="True" Wysiwyg="False" Text="[Service.&#34;VCNAME&#34;]"/>
+      <TfrxMemoView Name="Memo7" Left="162.40167" Top="0" Width="26.45671" Height="18.89765" ShowHint="False" DataField="FKOLVO" DataSet="frxDBDataset1" DataSetName="Service" DisplayFormat.DecimalSeparator="," Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="[Service.&#34;FKOLVO&#34;]"/>
+    </TfrxMasterData>
+    <TfrxReportSummary Name="ReportSummary1" Height="49.13389" Left="0" Top="238.11039" Width="204.09462">
+      <TfrxLineView Name="Line3" Left="3.77953" Top="35.77953" Width="185.19697" Height="0" ShowHint="False" Frame.Style="fsDash" Frame.Typ="4" Frame.Width="2"/>
+    </TfrxReportSummary>
+  </TfrxReportPage>
+</TfrxReport>

@@ -1,0 +1,341 @@
+object fmEdit_items: TfmEdit_items
+  Left = 0
+  Top = 0
+  BorderStyle = bsNone
+  Caption = 'fmEdit_items'
+  ClientHeight = 412
+  ClientWidth = 326
+  Color = 10930928
+  TransparentColor = True
+  TransparentColorValue = 10930928
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 16
+    Top = 392
+    Width = 3
+    Height = 13
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object cxButton1: TcxButton
+    Left = 9
+    Top = 255
+    Width = 139
+    Height = 70
+    Caption = '0'
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 0
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton3Click
+  end
+  object cxButton2: TcxButton
+    Left = 147
+    Top = 255
+    Width = 70
+    Height = 70
+    Caption = ','
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 1
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton2Click
+  end
+  object cxButton3: TcxButton
+    Left = 9
+    Top = 186
+    Width = 70
+    Height = 70
+    Caption = '1'
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 2
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton3Click
+  end
+  object cxButton4: TcxButton
+    Left = 78
+    Top = 186
+    Width = 70
+    Height = 70
+    Caption = '2'
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 3
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton3Click
+  end
+  object cxButton5: TcxButton
+    Left = 147
+    Top = 186
+    Width = 70
+    Height = 70
+    Caption = '3'
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 4
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton3Click
+  end
+  object cxButton6: TcxButton
+    Left = 9
+    Top = 117
+    Width = 70
+    Height = 70
+    Caption = '4'
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 5
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton3Click
+  end
+  object cxButton7: TcxButton
+    Left = 78
+    Top = 117
+    Width = 70
+    Height = 70
+    Caption = '5'
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 6
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton3Click
+  end
+  object cxButton8: TcxButton
+    Left = 147
+    Top = 117
+    Width = 70
+    Height = 70
+    Caption = '6'
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 7
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton3Click
+  end
+  object cxButton9: TcxButton
+    Left = 9
+    Top = 48
+    Width = 70
+    Height = 70
+    Caption = '7'
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 8
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton3Click
+  end
+  object cxButton10: TcxButton
+    Left = 78
+    Top = 48
+    Width = 70
+    Height = 70
+    Caption = '8'
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 9
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton3Click
+  end
+  object cxButton11: TcxButton
+    Left = 147
+    Top = 48
+    Width = 70
+    Height = 70
+    Caption = '9'
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 10
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton3Click
+  end
+  object cxButton12: TcxButton
+    Left = 216
+    Top = 48
+    Width = 100
+    Height = 93
+    Caption = 'Esc'
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 11
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton12Click
+  end
+  object cxButton13: TcxButton
+    Left = 216
+    Top = 140
+    Width = 100
+    Height = 93
+    Caption = '<-'
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 12
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton13Click
+  end
+  object cxButton14: TcxButton
+    Left = 216
+    Top = 232
+    Width = 100
+    Height = 93
+    Caption = 'Del'
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 13
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton14Click
+  end
+  object Edit1: TEdit
+    Left = 9
+    Top = 3
+    Width = 307
+    Height = 45
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -33
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 14
+  end
+  object cxButton15: TcxButton
+    Left = 9
+    Top = 324
+    Width = 307
+    Height = 70
+    Caption = 'Enter'
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 15
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton15Click
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = Timer1Timer
+    Left = 48
+    Top = 336
+  end
+  object checkWeght: TFDQuery
+    Connection = DM.FDB
+    Transaction = DM.trRead
+    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate]
+    UpdateOptions.EnableDelete = False
+    UpdateOptions.EnableInsert = False
+    UpdateOptions.EnableUpdate = False
+    SQL.Strings = (
+      'select p.id, p.mcena, p.name'
+      
+        'from product_classificators k join d_product p on k.idproduct = ' +
+        'p.id'
+      'where k.idclassificators = ('
+      'select c.idclassificators'
+      
+        'from product_classificators c join d_product s on c.idproduct = ' +
+        's.id'
+      'where c.idproduct = :id'
+      'and s.isweight = 0)'
+      'and p.isweight = 1'
+      'rows 1')
+    Left = 240
+    Top = 336
+    ParamData = <
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object checkWeghtID: TIntegerField
+      FieldName = 'ID'
+      Origin = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object checkWeghtMCENA: TCurrencyField
+      FieldName = 'MCENA'
+      Origin = 'MCENA'
+    end
+    object checkWeghtNAME: TWideStringField
+      FieldName = 'NAME'
+      Origin = 'NAME'
+      Size = 150
+    end
+  end
+end

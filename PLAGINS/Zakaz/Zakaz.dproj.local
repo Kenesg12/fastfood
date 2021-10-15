@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.759,=C:\FromMe\Dropbox\Delphi\Restaurants\BackOffice_new\PLAGINS\LinkConnectionUnit.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.573,C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\DateEditUnit.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.528,=C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\DateEditUnit.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.447,C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\Zakaz.dproj=C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\Delivery.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.223,C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\Zakaz.dproj=C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\Zakaz.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.948,C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Clients\fmCliUtint.dfm=C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Clients\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.487,=C:\FromMe\GIT\Rest\NewBO\rPLAGINS\LinkConnectionUnit.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.799,C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Clients\fmCliUtint.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.948,C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Clients\fmCliUtint.pas=C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Clients\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.457,C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\Unit1.pas=C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\DateEditUnit.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.224,=C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.345,=C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Delivery\DeliveryUnit.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.838,=C:\Users\acer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.644,=C:\Users\acer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.151,=C:\Users\acer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.061,C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\ZakazUnit.pas=C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\DeliveryUnit.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.989,=C:\Users\acer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.156,=C:\Users\acer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.499,C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Clients\Clifrm.dproj=C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Delivery\Delivery.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.061,C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\ZakazUnit.dfm=C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\DeliveryUnit.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.996,=C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Clients\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.900,=C:\Users\acer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.457,C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\Unit1.dfm=C:\FromMe\GIT\Rest\FastFood\PLAGINS\Zakaz\DateEditUnit.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.860,C:\Users\acer\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\FromMe\Dropbox\Delphi\Restaurants\FastFood\PLAGINS\Clients\Clifrm.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

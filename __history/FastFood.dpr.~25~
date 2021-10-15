@@ -1,0 +1,40 @@
+program FastFood;
+
+uses
+  Forms,
+  Dialogs,
+  windows, Messages,
+  MainUnit in 'Units\MainUnit.pas' {fmMain},
+  DMUnit in 'Units\DMUnit.pas' {DM: TDataModule},
+  DigitUnit in 'Units\DigitUnit.pas' {DigitForm},
+  CardUnit in 'Units\CardUnit.pas' {fmCard},
+  Edit_ItemsUnit in 'Units\Edit_ItemsUnit.pas' {fmEdit_items},
+  FormaOplatyUnit in 'Units\FormaOplatyUnit.pas' {fmFormaOplaty},
+  DataBase_regUnit in 'Units\DataBase_regUnit.pas' {fmDatabase_reg},
+  ServiceUnit in 'Units\ServiceUnit.pas' {fmService},
+  StationUnit in 'Units\StationUnit.pas' {fmStation},
+  PrihodUnit in 'Units\PrihodUnit.pas' {fmPrihod};
+
+var Wnd:HWND;
+{$R *.res}
+begin
+
+ Application.Title:='AKSAU-автматизация индустрии гостеприимства';
+   Wnd:=FindWindow(nil,'AKSAU-FASTFOOD');
+  if Wnd <> 0 then
+  begin
+    SendMessage(FindWindowEx(wnd,0,nil,PChar('ButTrayIcon')), WM_LButtonDown, 1,1);
+    SendMessage(FindWindowEx(wnd,0,nil,PChar('ButTrayIcon')), WM_LButtonUp, 1,1);
+    exit; // выход из программы не создавая формы и не запуская приложение
+   end;
+
+
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TDM, DM);
+  Application.CreateForm(TfmMain, fmMain);
+  Application.CreateForm(TfmEdit_items, fmEdit_items);
+  Application.CreateForm(TfmFormaOplaty, fmFormaOplaty);
+  Application.CreateForm(TfmPrihod, fmPrihod);
+  Application.Run;
+end.

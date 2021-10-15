@@ -1,0 +1,976 @@
+object fmShowReport: TfmShowReport
+  Left = 279
+  Top = 236
+  BorderStyle = bsNone
+  Caption = 'fmShowReport'
+  ClientHeight = 600
+  ClientWidth = 800
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnMouseWheel = FormMouseWheel
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object frxPreview1: TfrxPreview
+    Left = 0
+    Top = 0
+    Width = 800
+    Height = 600
+    Align = alClient
+    OutlineVisible = True
+    OutlineWidth = 121
+    ThumbnailVisible = False
+    UseReportHints = True
+  end
+  object AdvGlowButton1: TcxButton
+    Left = 20
+    Top = 28
+    Width = 85
+    Height = 40
+    Caption = #1042#1099#1093#1086#1076
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 1
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = AdvGlowButton1Click
+  end
+  object cxButton1: TcxButton
+    Left = 20
+    Top = 89
+    Width = 85
+    Height = 40
+    Hint = #1053#1077' '#1085#1072#1079#1085#1072#1095#1077#1085' '#1087#1088#1080#1085#1090#1077#1088' '#1076#1083#1103' '#1076#1072#1085#1085#1086#1081' '#1089#1090#1072#1085#1094#1080#1080'.'
+    Caption = #1055#1077#1095#1072#1090#1100
+    OptionsImage.Glyph.Data = {
+      F6000000424DF600000000000000760000002800000010000000100000000100
+      0400000000008000000000000000000000001000000000000000000000000000
+      BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+      FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+      7777777777770000007777747770000000077774477033333000444444700000
+      003077744770F7F7F7007774777000000780777777770FFFF007770000070F88
+      F077770FFF0770FFFF0700000F07770000070FFF0F07777777770F8F00077777
+      77770F8F0077777777770FF00777777777770000777777777777}
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 2
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton1Click
+  end
+  object cxButton2: TcxButton
+    Left = 20
+    Top = 149
+    Width = 85
+    Height = 40
+    Hint = 
+      #1058#1077#1082#1091#1097#1080#1081' '#1089#1095#1077#1090' '#1073#1099#1083' '#1088#1072#1079#1076#1077#1083#1077#1085' '#1085#1072' '#1087#1086#1076#1079#1072#1082#1072#1079#1099','#13#10#1082' '#1076#1072#1085#1085#1086#1084#1091' '#1087#1086#1076#1079#1072#1082#1072#1079#1091' '#1087#1088#1080 +
+      #1082#1088#1077#1087#1083#1077#1085#1072' '#1080#1075#1088#1072','#13#10#1087#1086#1101#1090#1086#1084#1091' '#1077#1075#1086' '#1089#1083#1077#1076#1091#1077#1090' '#1079#1072#1082#1088#1099#1074#1072#1090#1100' '#1074' '#1087#1086#1089#1083#1077#1076#1085#1102#1102' '#1086#1095#1077#1088#1077#1076 +
+      #1100'!'
+    Caption = #1047#1072#1082#1088#1099#1090#1100#13#10#1089#1095#1077#1090
+    SpeedButtonOptions.CanBeFocused = False
+    TabOrder = 3
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = cxButton2Click
+  end
+  object Close_orders: TFDQuery
+    Tag = -1
+    SQL.Strings = (
+      ' select *'
+      ' from CLOSE_ORDERS(:ORDERS);')
+    Left = 192
+    Top = 208
+    ParamData = <
+      item
+        Name = 'ORDERS'
+        DataType = ftFixedWideChar
+        ParamType = ptInput
+        Size = 36
+      end>
+    object Close_ordersSTOL_LABEL: TWideStringField
+      FieldName = 'STOL_LABEL'
+      Origin = 'STOL_LABEL'
+      Size = 50
+    end
+    object Close_ordersSTATUS: TSmallintField
+      FieldName = 'STATUS'
+      Origin = 'STATUS'
+    end
+    object Close_ordersPIC: TIntegerField
+      FieldName = 'PIC'
+      Origin = 'PIC'
+    end
+    object Close_ordersOPEN_COUNT: TSmallintField
+      FieldName = 'OPEN_COUNT'
+      Origin = 'OPEN_COUNT'
+    end
+  end
+  object FDCommand1: TFDCommand
+    CommandText.Strings = (
+      
+        'insert into tbaccount(idperson, mkolvo, idoperacii_type, idosnov' +
+        'anie, dt)'
+      'select :pass, -sum(mkolvo), 100, :iddoc, current_timestamp'
+      'from tbaccount'
+      'where idosnovanie = :iddoc;')
+    ParamData = <
+      item
+        Name = 'PASS'
+        ParamType = ptInput
+      end
+      item
+        Name = 'IDDOC'
+        ParamType = ptInput
+      end>
+    Left = 280
+    Top = 208
+  end
+  object tbStation: TFDQuery
+    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate]
+    UpdateOptions.EnableDelete = False
+    UpdateOptions.EnableInsert = False
+    UpdateOptions.EnableUpdate = False
+    Left = 64
+    Top = 352
+  end
+  object Current_order: TFDQuery
+    UpdateOptions.AssignedValues = [uvCountUpdatedRecords, uvCheckReadOnly, uvCheckUpdatable]
+    UpdateOptions.CountUpdatedRecords = False
+    UpdateOptions.CheckReadOnly = False
+    UpdateOptions.CheckUpdatable = False
+    SQL.Strings = (
+      
+        'select d.kod as inomer,  d.idpeoples as idwaiter, d.supplier as ' +
+        'idKlinet,'
+      'k.Name as stol, d.uid, d.dt,'
+      '      d.idKoord, GUEST_CNT,'
+      
+        'coalesce(c.mAccount,0) - coalesce((select sum(l.kolvo * ((l.cena' +
+        '_sales * (100 - coalesce((select bDiscount from d_classif where ' +
+        'id = (select Podrazd from find_podrazd((select pid from d_produc' +
+        't where id = l.product))))*'
+      
+        '             case when (l.mdiscount <> 0) then 100 * l.mdiscount' +
+        ' / l.cena_sales'
+      '             else (case'
+      
+        '             when (select usediscount from contragents where id ' +
+        '= g.supplier) = 1 then'
+      
+        '             (select case when (extract(hour from current_timest' +
+        'amp) between dtstart and dtend) or (dtstart = dtend)  then disco' +
+        'unt else 0 end'
+      '             from tbdiscount where idclient = g.supplier'
+      
+        '             and idClassif = (select Podrazd from find_podrazd((' +
+        'select pid from d_product where id = l.product)))'
+      
+        '             and week_day = extract(weekday from current_timesta' +
+        'mp))'
+      
+        '             else (select discount from contragents where id = g' +
+        '.supplier) end) end, 0) +'
+      
+        '             coalesce(l.m_bobsluzh * l.m_obsluzh, 0)) * 0.01))) ' +
+        'from d_lines l inner join documents g on(l.iddocument = g.uid)'
+      
+        '             where g.bdel = 0 and g.supplier = c.id and g.provod' +
+        ' = 0 and g.operacii_type = 2 and l.bdel = 0), 0) as mAccount, k.' +
+        'obsluzh,'
+      
+        '             coalesce((select param_state from tborg_items where' +
+        ' param_name = '#39'USELIMIT'#39' and cast(param_value as integer) = d.id' +
+        'station), 0) as isbalans, '
+      '             d.isgame, d.game, d.delivery'
+      ''
+      '     from documents d'
+      '     inner join tbKoord k on(d.idKoord = k.id)'
+      '     inner join contragents c on(d.supplier = c.id)'
+      '     where d.closed_time is null'
+      '     and d.uid = :u'
+      'order by d.kod')
+    Left = 232
+    Top = 344
+    ParamData = <
+      item
+        Name = 'U'
+        ParamType = ptInput
+      end>
+    object Current_orderINOMER: TIntegerField
+      FieldName = 'INOMER'
+      Origin = 'KOD'
+      Required = True
+    end
+    object Current_orderIDWAITER: TIntegerField
+      FieldName = 'IDWAITER'
+      Origin = 'IDPEOPLES'
+    end
+    object Current_orderIDKLINET: TIntegerField
+      FieldName = 'IDKLINET'
+      Origin = 'SUPPLIER'
+    end
+    object Current_orderIDKOORD: TIntegerField
+      FieldName = 'IDKOORD'
+      Origin = 'IDKOORD'
+    end
+    object Current_orderGUEST_CNT: TSmallintField
+      FieldName = 'GUEST_CNT'
+      Origin = 'GUEST_CNT'
+    end
+    object Current_orderMACCOUNT: TFloatField
+      AutoGenerateValue = arDefault
+      FieldName = 'MACCOUNT'
+      Origin = 'MACCOUNT'
+      ProviderFlags = []
+      ReadOnly = True
+      currency = True
+    end
+    object Current_orderOBSLUZH: TCurrencyField
+      AutoGenerateValue = arDefault
+      FieldName = 'OBSLUZH'
+      Origin = 'OBSLUZH'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object Current_orderISBALANS: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ISBALANS'
+      Origin = 'ISBALANS'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object Current_orderISGAME: TSmallintField
+      FieldName = 'ISGAME'
+      Origin = 'ISGAME'
+      Required = True
+    end
+    object Current_orderDT: TSQLTimeStampField
+      FieldName = 'DT'
+      Origin = 'DT'
+    end
+    object Current_orderGAME: TCurrencyField
+      FieldName = 'GAME'
+    end
+    object Current_orderDELIVERY: TIntegerField
+      FieldName = 'DELIVERY'
+    end
+    object Current_ordercur_bal: TCurrencyField
+      FieldKind = fkCalculated
+      FieldName = 'cur_bal'
+      Calculated = True
+    end
+    object Current_orderSTOL: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'STOL'
+      Origin = 'NAME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object Current_orderUID: TWideStringField
+      FieldName = 'UID'
+      Origin = 'UID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      FixedChar = True
+      Size = 36
+    end
+  end
+  object frxReport2: TfrxReport
+    Version = '5.4.6'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+    PrintOptions.PrintOnSheet = 0
+    PrintOptions.ShowDialog = False
+    ReportOptions.CreateDate = 40024.201474062500000000
+    ReportOptions.LastChange = 42866.939485000000000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      
+        'var t1, t2, t3, t4, t5:Real;                                    ' +
+        '                         '
+      ''
+      ''
+      'procedure Memo28OnAfterData(Sender: TfrxComponent);'
+      'begin'
+      ' if Memo28.Value=Memo6.Value then'
+      '   begin                   '
+      '    Memo24.Visible:=false;        '
+      '    Memo6.Visible:=false;          '
+      '    Memo23.Visible:=false;    '
+      '    Memo20.Visible:=false;          '
+      '    Memo25.Visible:=false;'
+      '    Memo21.Visible:=false;'
+      '    Memo26.Visible:=true;                 '
+      '    Memo28.Visible:=true;'
+      '    Memo19.Visible:=false;                 '
+      '    Memo27.Visible:=false;                      '
+      '      '
+      '    Memo26.Top:=t1;'
+      '    Memo28.Top:=t1;              '
+      '   end'
+      '  else      '
+      '   BEGIN'
+      '    if Memo20.Value=0 then'
+      '    begin          '
+      '     Memo23.Visible:=false;    '
+      '     Memo20.Visible:=false;'
+      '     t2:=t2-18.9;'
+      '     t3:=t3-18.9;'
+      '     t4:=t4-19.9;'
+      '     t5:=t5-19.9;                           '
+      '    end;'
+      '   if Memo19.Value = 0 then'
+      '    begin'
+      '     Memo19.Visible:=false;'
+      '     Memo27.Visible:=false;'
+      '     t3:=t3-19.9;'
+      '     t4:=t4-19.9;'
+      
+        '     t5:=t5-19.9;                                               ' +
+        '       '
+      '    end;             '
+      '   if Memo21.Value = 0 then'
+      '   begin          '
+      '    Memo25.Visible:=false;'
+      '    Memo21.Visible:=false;'
+      '    t4:=t4-19.9;'
+      
+        '     t5:=t5-19.9;                                               ' +
+        '                '
+      '   end;                       '
+      '    Memo24.Top:=t1;'
+      '    Memo6.Top:=t1;'
+      '    Memo23.Top:=t2;      '
+      '    Memo20.Top:=t2;'
+      '    Memo19.top:=t3;'
+      '    Memo27.top:=t3;      '
+      '    Memo25.Top:=t4;      '
+      '    Memo21.Top:=t4;'
+      '    Memo26.Top:=t5;      '
+      '    Memo28.Top:=t5;               '
+      '  END;'
+      '  Footer1.Height:=Memo28.Top+Memo28.Height;           '
+      
+        '  Report.Variables.Variables('#39'mcash'#39'):=Report.Variables.Variable' +
+        's('#39'mcash'#39') + Memo28.Value;                                '
+      '  '
+      'end;'
+      ''
+      ''
+      'procedure GroupHeader1OnAfterPrint(Sender: TfrxComponent);'
+      
+        'begin// showMessage(FloatToStr(Memo28.Top));                    ' +
+        '                    '
+      '  t1:=3.78;'
+      ' t2:=22.68;'
+      ' t3:=41.57;                         '
+      ' t4:=60.47;'
+      ' t5:=79.37;  '
+      'end;'
+      ''
+      'begin                     '
+      
+        ' Report.Variables.Variables('#39'mcash'#39'):=0;                        ' +
+        '      '
+      'end.')
+    OnReportPrint = 'frxReport1OnReportPrint'
+    Left = 496
+    Top = 344
+    Datasets = <
+      item
+        DataSet = frxReport2.IBXQuery1
+        DataSetName = 'IBXQuery1'
+      end>
+    Variables = <
+      item
+        Name = ' New Category1'
+        Value = Null
+      end
+      item
+        Name = 'orders'
+        Value = Null
+      end
+      item
+        Name = 'mcash'
+        Value = Null
+      end>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+      object IBXQuery1: TfrxFDQuery
+        UserName = 'IBXQuery1'
+        CloseDataSource = True
+        BCDToCurrency = False
+        IgnoreDupParams = False
+        Params = <
+          item
+            Name = 'orders'
+            DataType = ftString
+            Expression = '<orders>'
+          end>
+        SQL.Strings = (
+          'SELECT * '
+          'FROM PRINT_GUEST_CHECK(:orders)'
+          'order by Podrazd    '
+          '  ')
+        pLeft = 288
+        pTop = 108
+        Parameters = <
+          item
+            Name = 'orders'
+            DataType = ftString
+            Expression = '<orders>'
+          end>
+      end
+    end
+    object Page1: TfrxReportPage
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = []
+      PaperWidth = 80.000000000000000000
+      PaperHeight = 210.000000000000000000
+      PaperSize = 256
+      LeftMargin = 4.000000000000000000
+      RightMargin = 5.000000000000000000
+      BottomMargin = 5.000000000000000000
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        Height = 134.622140000000000000
+        Top = 18.897650000000000000
+        Width = 268.346630000000000000
+        object Memo11: TfrxMemoView
+          Left = 7.559060000000000000
+          Top = 69.370130000000000000
+          Width = 98.267780000000000000
+          Height = 15.118120000000000000
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = 'dd mmm yyyy'
+          DisplayFormat.Kind = fkDateTime
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            #1044#1072#1090#1072':[IBXQuery1."START_TIME" #ddd.mm.yy]')
+          ParentFont = False
+        end
+        object Memo12: TfrxMemoView
+          Left = 7.559060000000000000
+          Top = 83.488250000000000000
+          Width = 86.929190000000000000
+          Height = 15.118120000000000000
+          DisplayFormat.DecimalSeparator = ','
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            #1054#1090#1082#1088#1099#1090': [IBXQuery1."START_TIME" #dhh:mm]')
+          ParentFont = False
+          WordWrap = False
+        end
+        object Memo13: TfrxMemoView
+          Left = 7.559060000000000000
+          Top = 97.826840000000000000
+          Width = 105.826840000000000000
+          Height = 15.118120000000000000
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = 'hh:mm'
+          DisplayFormat.Kind = fkDateTime
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            #1047#1072#1082#1088#1099#1090': [IBXQuery1."END_TIME" #dhh:mm]')
+          ParentFont = False
+          WordWrap = False
+        end
+        object Memo14: TfrxMemoView
+          Left = 7.559060000000000000
+          Top = 111.944960000000000000
+          Width = 117.165430000000000000
+          Height = 15.118120000000000000
+          DisplayFormat.DecimalSeparator = ','
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = [ftBottom]
+          Frame.Width = 1.500000000000000000
+          Memo.UTF8W = (
+            #1054#1092#1080#1094#1080#1072#1085#1090': [IBXQuery1."OFICIANT"]')
+          ParentFont = False
+          WordWrap = False
+        end
+        object Memo15: TfrxMemoView
+          Left = 112.196970000000000000
+          Top = 95.488250000000000000
+          Width = 154.960730000000000000
+          Height = 15.118120000000000000
+          DisplayFormat.DecimalSeparator = ','
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            #1057#1095#1077#1090' '#8470' [IBXQuery1."NOMERZAK"]')
+          ParentFont = False
+          WordWrap = False
+        end
+        object Memo16: TfrxMemoView
+          Left = 96.637910000000000000
+          Top = 70.811070000000000000
+          Width = 170.078850000000000000
+          Height = 26.456710000000000000
+          DisplayFormat.DecimalSeparator = ','
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -19
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            #1057#1090#1086#1083'  [IBXQuery1."STOL"]')
+          ParentFont = False
+          WordWrap = False
+        end
+        object Memo17: TfrxMemoView
+          Left = 122.212740000000000000
+          Top = 111.944960000000000000
+          Width = 143.622140000000000000
+          Height = 15.118120000000000000
+          DisplayFormat.DecimalSeparator = ','
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = [ftBottom]
+          Frame.Width = 1.500000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            #1043#1086#1089#1090#1100': [IBXQuery1."KLIENT"]')
+          ParentFont = False
+          WordWrap = False
+        end
+        object Picture1: TfrxPictureView
+          Align = baWidth
+          Top = 5.000000000000000000
+          Width = 268.346630000000000000
+          Height = 52.913420000000000000
+          Center = True
+          FileLink = 'Logo.bmp'
+          HightQuality = False
+          Transparent = False
+          TransparentColor = clWhite
+        end
+      end
+      object GroupHeader1: TfrxGroupHeader
+        FillType = ftBrush
+        Height = 22.677180000000000000
+        Top = 215.433210000000000000
+        Width = 268.346630000000000000
+        OnAfterPrint = 'GroupHeader1OnAfterPrint'
+        Condition = 'IBXQuery1."PODRAZD"'
+        object Memo1: TfrxMemoView
+          Left = 5.559060000000000000
+          Top = 5.000000000000000000
+          Width = 257.008040000000000000
+          Height = 15.118120000000000000
+          DisplayFormat.DecimalSeparator = ','
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNone
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Style = fsDash
+          Frame.Typ = [ftBottom]
+          Frame.Width = 1.500000000000000000
+          Memo.UTF8W = (
+            '[IBXQuery1."PODRAZD"]')
+          ParentFont = False
+        end
+      end
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        Height = 15.118120000000000000
+        Top = 260.787570000000000000
+        Width = 268.346630000000000000
+        DataSet = frxReport2.IBXQuery1
+        DataSetName = 'IBXQuery1'
+        RowCount = 0
+        object Memo2: TfrxMemoView
+          Left = 3.779530000000000000
+          Width = 166.299320000000000000
+          Height = 15.118120000000000000
+          DataField = 'USLUGA'
+          DataSet = frxReport2.IBXQuery1
+          DataSetName = 'IBXQuery1'
+          DisplayFormat.DecimalSeparator = ','
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNone
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Color = clTeal
+          Frame.ShadowWidth = 1.000000000000000000
+          Memo.UTF8W = (
+            '[IBXQuery1."USLUGA"]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo4: TfrxMemoView
+          Left = 205.622140000000000000
+          Width = 18.897650000000000000
+          Height = 15.118120000000000000
+          AutoWidth = True
+          DataSet = frxReport2.IBXQuery1
+          DataSetName = 'IBXQuery1'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '0.##'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haCenter
+          Memo.UTF8W = (
+            '[IBXQuery1."KOLVO"]')
+          ParentFont = False
+          WordBreak = True
+          WordWrap = False
+        end
+        object Memo5: TfrxMemoView
+          Left = 220.992270000000000000
+          Width = 45.354360000000000000
+          Height = 15.118120000000000000
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNone
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[<IBXQuery1."KOLVO">*<IBXQuery1."CENA"> #n%2,0n]')
+          ParentFont = False
+          WordBreak = True
+          WordWrap = False
+        end
+        object Memo3: TfrxMemoView
+          Left = 167.165430000000000000
+          Width = 37.795300000000000000
+          Height = 15.118120000000000000
+          DataSetName = #1047#1072#1082#1072#1079#1099
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '# ##0.##'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNone
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Color = clTeal
+          Frame.ShadowWidth = 1.000000000000000000
+          HAlign = haCenter
+          Memo.UTF8W = (
+            '[IBXQuery1."CENA" #n%2,0n]')
+          ParentFont = False
+        end
+      end
+      object GroupFooter1: TfrxGroupFooter
+        FillType = ftBrush
+        Height = 11.338590000000000000
+        Top = 298.582870000000000000
+        Width = 268.346630000000000000
+      end
+      object ReportSummary1: TfrxReportSummary
+        FillType = ftBrush
+        Height = 61.252010000000000000
+        Top = 498.897960000000000000
+        Width = 268.346630000000000000
+        object Memo8: TfrxMemoView
+          Align = baWidth
+          Top = 2.236240000000000000
+          Width = 68.031540000000000000
+          Height = 30.236240000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNone
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Fill.BackColor = 13421772
+          Memo.UTF8W = (
+            #1050' '#1086#1087#1083#1072#1090#1077':')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo7: TfrxMemoView
+          Align = baWidth
+          Left = 68.031540000000000000
+          Top = 2.236240000000000000
+          Width = 200.315090000000000000
+          Height = 30.236240000000000000
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNone
+          Font.Height = -29
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Fill.BackColor = 13421772
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[SUM(<IBXQuery1."KOLVO">*<IBXQuery1."CENA">*(100-<IBXQuery1."DIS' +
+              'COUNT">+<IBXQuery1."OBSLUZH">)/100-<IBXQuery1."MDISCOUNT">,Maste' +
+              'rData1) #n%2.0m]')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo9: TfrxMemoView
+          Align = baWidth
+          Top = 33.354360000000000000
+          Width = 268.346630000000000000
+          Height = 26.456710000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haCenter
+          Memo.UTF8W = (
+            
+              #1042#1086#1079#1085#1072#1075#1088#1072#1078#1076#1077#1085#1080#1077' '#1086#1092#1080#1094#1080#1072#1085#1090#1072#1084' '#1087#1088#1080#1074#1077#1090#1089#1090#1074#1091#1077#1090#1089#1103', '#1085#1086' '#1074#1089#1077#1075#1076#1072' '#1086#1089#1090#1072#1077#1090#1089#1103' '#1085#1072' ' +
+              #1074#1072#1096#1077' '#1091#1089#1084#1086#1090#1088#1077#1085#1080#1077'!')
+          ParentFont = False
+          VAlign = vaBottom
+        end
+      end
+      object Footer1: TfrxFooter
+        FillType = ftBrush
+        Height = 105.826840000000000000
+        Top = 332.598640000000000000
+        Width = 268.346630000000000000
+        object Line1: TfrxLineView
+          Left = 7.559060000000000000
+          Top = 3.779530000000000000
+          Width = 253.228510000000000000
+          Color = clBlack
+          Frame.Style = fsDot
+          Frame.Typ = [ftTop]
+          Frame.Width = 3.000000000000000000
+        end
+        object Memo6: TfrxMemoView
+          Left = 64.252010000000000000
+          Top = 9.338590000000000000
+          Width = 192.756030000000000000
+          Height = 18.897650000000000000
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNone
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Style = fsDot
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[SUM(<IBXQuery1."KOLVO">*<IBXQuery1."CENA">,MasterData1) #n%2,0n' +
+              ']')
+          ParentFont = False
+        end
+        object Memo20: TfrxMemoView
+          Left = 64.252010000000000000
+          Top = 28.236240000000000000
+          Width = 192.756030000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNone
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '-[SUM(<IBXQuery1."KOLVO">*<IBXQuery1."CENA">*<IBXQuery1."DISCOUN' +
+              'T">/100,MasterData1) #n%2,0n]')
+          ParentFont = False
+        end
+        object Memo21: TfrxMemoView
+          Left = 59.692950000000000000
+          Top = 66.031540000000000000
+          Width = 196.535560000000000000
+          Height = 18.897650000000000000
+          DisplayFormat.DecimalSeparator = ','
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNone
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[SUM(<IBXQuery1."KOLVO">*<IBXQuery1."CENA">*<IBXQuery1."OBSLUZH"' +
+              '>/100,MasterData1) #n%2,0n]')
+          ParentFont = False
+        end
+        object Memo23: TfrxMemoView
+          Left = 3.779530000000000000
+          Top = 28.236240000000000000
+          Width = 131.472480000000000000
+          Height = 18.897637800000000000
+          DisplayFormat.DecimalSeparator = ','
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNone
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Style = fsDot
+          Memo.UTF8W = (
+            #1057#1082#1080#1076#1082#1072' [IBXQuery1."DISCOUNT" #n%g]%:')
+          ParentFont = False
+        end
+        object Memo24: TfrxMemoView
+          Left = 3.779530000000000000
+          Top = 9.338590000000000000
+          Width = 60.472480000000000000
+          Height = 18.897650000000000000
+          DisplayFormat.DecimalSeparator = ','
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNone
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Style = fsDot
+          Memo.UTF8W = (
+            #1057#1091#1084#1084#1072':')
+          ParentFont = False
+        end
+        object Memo25: TfrxMemoView
+          Left = 3.779530000000000000
+          Top = 66.031540000000000000
+          Width = 125.692950000000000000
+          Height = 18.897650000000000000
+          DisplayFormat.DecimalSeparator = ','
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNone
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Style = fsDot
+          Memo.UTF8W = (
+            #1054#1073#1089#1083#1091#1078'. [IBXQuery1."OBSLUZH"]%:')
+          ParentFont = False
+        end
+        object Memo26: TfrxMemoView
+          Left = 3.779530000000000000
+          Top = 84.929190000000000000
+          Width = 64.252010000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Style = fsDot
+          Memo.UTF8W = (
+            #1055#1086#1076#1080#1090#1086#1075': ')
+          ParentFont = False
+        end
+        object Memo19: TfrxMemoView
+          Left = 68.031540000000000000
+          Top = 47.133890000000000000
+          Width = 188.976500000000000000
+          Height = 18.897650000000000000
+          DisplayFormat.DecimalSeparator = ','
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNone
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            '-[SUM(<IBXQuery1."MDISCOUNT">,MasterData1) #n%2.0n]')
+          ParentFont = False
+        end
+        object Memo27: TfrxMemoView
+          Left = 3.779530000000000000
+          Top = 47.133890000000000000
+          Width = 129.252010000000000000
+          Height = 18.897650000000000000
+          DisplayFormat.DecimalSeparator = ','
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNone
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Style = fsDot
+          Memo.UTF8W = (
+            #1057#1082#1080#1076#1082#1072' '#1089#1091#1084#1084'.:')
+          ParentFont = False
+        end
+        object Memo28: TfrxMemoView
+          Left = 68.031540000000000000
+          Top = 84.929190000000000000
+          Width = 188.976500000000000000
+          Height = 18.897650000000000000
+          OnAfterData = 'Memo28OnAfterData'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '%2.2n'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[SUM(<IBXQuery1."KOLVO">*<IBXQuery1."CENA">*(100-<IBXQuery1."DIS' +
+              'COUNT">+<IBXQuery1."OBSLUZH">)/100-<IBXQuery1."MDISCOUNT">,Maste' +
+              'rData1) #n%2.0n]')
+          ParentFont = False
+        end
+      end
+    end
+  end
+end

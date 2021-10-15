@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.dfm,C:\Users\Kenes\Dropbox\Delphi\Restaurants\FastFood\Units\RegUnit.dfm=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.338,=C:\FromMe\GIT\UNO\FastFood\PLAGINS\LinkConnectionUnit.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.553,=C:\FromMe\GIT\UNO\FastFood\Units\ButonsUnit.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.pas,C:\Users\Kenes\Dropbox\Delphi\Restaurants\FastFood\Unit1.pas=C:\Users\Kenes\Dropbox\Delphi\Restaurants\FastFood\Units\PrihodUnit.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.dfm,C:\Users\Kenes\Dropbox\Delphi\Restaurants\FastFood\Unit1.dfm=C:\Users\Kenes\Dropbox\Delphi\Restaurants\FastFood\Units\PrihodUnit.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.861,=C:\FromMe\GIT\Rest\NewBO\rPLAGINS\LinkConnectionUnit.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.pas,C:\Users\Kenes\Dropbox\Delphi\Restaurants\FastFood\Units\RegUnit.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.pas,C:\Users\Kenes\Delphi\Restaurants\FastFood\Unit1.pas=C:\Users\Kenes\Delphi\Restaurants\FastFood\Units\ServiceUnit.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.dfm,C:\Users\Kenes\Delphi\Restaurants\FastFood\Units\LogInUnit.dfm=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.dfm,C:\Users\Kenes\Delphi\Restaurants\FastFood\Unit1.dfm=C:\Users\Kenes\Delphi\Restaurants\FastFood\Units\ServiceUnit.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.pas,C:\Users\Kenes\Delphi\Restaurants\FastFood\Units\LogInUnit.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.pas,C:\Users\Kenes\Delphi\Restaurants\FastFood\Units\CryptUnit.pas=</Transaction>
+  </Transactions>
+</BorlandProject>

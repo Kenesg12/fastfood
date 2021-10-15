@@ -1,0 +1,140 @@
+unit LogInUnit;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, AdvPanel, DB, ADODB, Registry, CryptUnit, Menus,
+  cxLookAndFeelPainters, cxButtons;
+
+type
+  TLogIn = class(TForm)
+    AdvPanel1: TAdvPanel;
+    Label1: TLabel;
+    Password: TEdit;
+    Check_pass: TADOQuery;
+    Check_passIDPERSON: TIntegerField;
+    Button1: TcxButton;
+    Check_passVCFIO: TWideStringField;
+    procedure PasswordKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure PasswordClick(Sender: TObject);
+    procedure cxButton1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  LogIn: TLogIn; 
+  pass:Integer;
+  Familiya,Ima:Shortstring;
+  Station:Integer;
+
+implementation
+
+uses DMUnit, DigitUnit;
+
+
+{$R *.dfm}
+
+procedure TLogIn.PasswordClick(Sender: TObject);
+begin
+ AddStr:='';
+ //Application.CreateForm(TDigitForm, DigitForm);
+ DigitForm.Edit1.PasswordChar:='*';
+ DigitForm.ShowModal;
+ Password.Text:=AddStr;
+ Button1.Click;
+end;
+
+procedure TLogIn.PasswordKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key=ord(#13) then
+ Button1.Click;
+end;
+
+procedure TLogIn.FormShow(Sender: TObject);
+begin
+ Password.Text:='';
+end;
+
+Function ReadComputerName:string;
+var
+ i:DWORD;
+ p:PChar;
+begin
+ i:=255;
+ GetMem(p, i);
+ GetComputerName(p, i);
+ Result:=String(p);
+ FreeMem(p);
+end;
+
+
+
+
+procedure TLogIn.cxButton1Click(Sender: TObject);
+begin
+    pass:=0;
+    Check_pass.Active:=false;
+    Check_pass.Parameters.ParamByName('pass').Value:=Encrypt(PassWord.Text);
+    Check_pass.Active:=true;
+      if not Check_passIDPERSON.IsNull then
+        pass:=Check_passIDPERSON.AsInteger;
+
+  close;
+end;
+
+procedure TLogIn.FormCreate(Sender: TObject);
+var DBFile:String; reg:TRegistry;
+begin
+  reg:=TRegistry.Create;
+  try
+    reg.RootKey:=HKEY_CURRENT_USER;
+     if reg.KeyExists('Software\AKSAU') then
+      begin
+        if reg.OpenKey('Software\AKSAU',true) then
+           begin
+             DBFile:=reg.ReadString('DB');
+             Station:=reg.ReadInteger('Station');
+             reg.CloseKey;
+           end;
+      end
+     else
+      begin
+        if reg.OpenKey('Software\AKSAU',true) then
+           begin
+             reg.WriteString('DB',ExtractFilePath(Application.ExeName)+'DB.AKS');
+             DBFile:=ExtractFilePath(Application.ExeName)+'DB.AKS';
+             reg.WriteInteger('Station',1);
+             Station:=1;
+             reg.CloseKey;
+           end;
+      end;
+   finally
+    reg.Free;
+   end;
+ try
+  DM.AC.Connected:=false;
+  DM.AC.ConnectionString:='Provider=LCPI.IBProvider.3.Free;Password=masterkey;Persist Security Info=True;User ID=SYSDBA;Location='+DBFile+';ctype=WIN1251;auto_commit=True;auto_commit_level=1048576;support_odbc_query=True;dbclient_library=fbclient.dll;dbclient_type=fb2.0';
+  dm.AC.Connected:=true;
+  dm.DB.DatabaseName:=DBFile;
+  dm.DB.Connected:=true;
+ except
+  ShowMessage('Не удалось подключиться к серверу!');
+  Application.Terminate;
+ end;
+ if pos('\\',DBFile)<>0 then
+ begin
+  Delete(DBFile,1,2);
+  Delete(DBFile,Pos('\',DBFile),Length(DBFile));
+  WinExec(PChar('net time \\'+DBFile+' /set /yes'), SW_HIDE );
+ end;
+end;
+
+end.
